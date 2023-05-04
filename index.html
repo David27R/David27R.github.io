@@ -69,6 +69,20 @@ adobeDCView.registerCallback(
         var zipFileName = pdfFilename.replace(".pdf", ".zip");
         console.log("zipFileName es lo primero");
         console.log(formData);
+        fetch('/generate-pdf', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'formdata.pdf';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            });
         fetch("https://practicalpdf.com/code-pens/reflect/", {
             method: 'POST',
             body: formData,
