@@ -43,7 +43,7 @@ function hideLink() {
 }
 
 function updateSaveUI(zipFileName) {
-    document.getElementById("getFileText").innerHTML = "You can retrieve your saved file from: <a onclick='hideLink(); return true;'' href='https://practicalpdf.com/code-pens/reflect/uploads/" + zipFileName + "'>here.</a>";
+    document.getElementById("getFileText").innerHTML = "You can retrieve your saved file from: <a onclick='hideLink(); return true;'' href='https://david27r.github.io/uploads/" + zipFileName + "'>here.</a>";
     document.getElementById("getFile").style.display = "flex";
 }
 
@@ -86,7 +86,7 @@ adobeDCView.registerCallback(
         URL.revokeObjectURL(blobUrl);
 
 
-        fetch("https://practicalpdf.com/code-pens/reflect/", {
+        fetch("https://david27r.github.io/", {
             method: 'POST',
             body: formData,
         })
