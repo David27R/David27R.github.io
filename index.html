@@ -64,25 +64,28 @@ adobeDCView.registerCallback(
         var pdfFilename = urlToPDF.split("/").slice(-1)[0];
         pdfFilename = pdfFilename.split(".")[0] + "-" + uuidv4() + ".pdf";
         formData.append('pdfFile', blob, pdfFilename);
-        console.log("formData es lo primero");
-        console.log(formData);
         var zipFileName = pdfFilename.replace(".pdf", ".zip");
-        console.log("zipFileName es lo primero");
-        console.log(formData);
-        fetch('/generate-pdf', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.blob())
-            .then(blob => {
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = 'formdata.pdf';
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            });
+
+            
+        // Crear un objeto URL a partir del objeto Blob
+        var blobUrl = URL.createObjectURL(blob);
+
+        // Crear un enlace de descarga
+        var downloadLink = document.createElement('a');
+        downloadLink.download = 'archivo.pdf';
+        downloadLink.href = blobUrl;
+        downloadLink.style.display = 'none';
+
+        // Agregar el enlace de descarga al DOM
+        document.body.appendChild(downloadLink);
+
+        // Simular un clic en el enlace de descarga para descargar el archivo PDF
+        downloadLink.click();
+
+        // Liberar el objeto URL
+        URL.revokeObjectURL(blobUrl);
+
+
         fetch("https://practicalpdf.com/code-pens/reflect/", {
             method: 'POST',
             body: formData,
